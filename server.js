@@ -42,10 +42,11 @@ app.post('/api/contact', (req, res) => {
         });
 
         const mailOptions = {
-            from: email,
-            to: process.env.EMAIL_USER,
+            from: process.env.EMAIL_USER, // Your email address
+            to: process.env.EMAIL_USER,   // Send the email to yourself
             subject: `Contact Form Submission from ${name}`,
-            text: message
+            text: `You have a new contact form submission.\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
+            replyTo: email // Sets the "Reply-To" to the customer's email
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
