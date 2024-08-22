@@ -29,10 +29,15 @@ app.post('/api/contact', (req, res) => {
         }
 
         const transporter = nodemailer.createTransport({
-            service: 'Outlook',
+            host: 'smtp.office365.com', // Outlook SMTP server
+            port: 587, // Port for TLS/STARTTLS
+            secure: false, // Use TLS (false) instead of SSL (true)
             auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
+                user: process.env.EMAIL_USER, // Your Outlook email address
+                pass: process.env.EMAIL_PASS  // Your Outlook email password
+            },
+            tls: {
+                ciphers: 'SSLv3' // Optional: Outlook sometimes requires this setting
             }
         });
 
